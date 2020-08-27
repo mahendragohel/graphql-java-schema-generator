@@ -1,1 +1,19 @@
 # graphql-java-schema-generator
+Example
+`<plugin>
+                         <groupId>com.github.mahendragohel</groupId>
+                         <artifactId>graphql-schema-generator</artifactId>
+                         <version>1.0-SNAPSHOT</version>
+                         <executions>
+                             <execution>
+                                 <goals>
+                                     <goal>generate-schema</goal>
+                                 </goals>
+                             </execution>
+                         </executions>
+                         <configuration>
+                             <inputDirectory>src/main/resources/swagger/</inputDirectory>
+                             <inputYamlFileName>filename.yaml</inputYamlFileName>
+                             <outputDirectory>src/main/resources/graphql</outputDirectory>
+                         </configuration>
+                     </plugin>`
