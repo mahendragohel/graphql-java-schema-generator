@@ -1,4 +1,4 @@
-package com.graphql.schema.generator;
+package com.github.mahendragohel;
 
 public class GraphqlField {
     private String fieldDescription;

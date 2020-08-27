@@ -1,4 +1,4 @@
-package com.graphql.schema.generator;
+package com.github.mahendragohel;
 
 import java.util.List;
 

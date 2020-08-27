@@ -1,6 +1,6 @@
-C:\Users\gohelm\Downloads\Project\graphql-server-demo-master\graphql-schema-gen-maven-plugin\src\main\java\com\amdocs\graphql\GraphQLSchema.java
-C:\Users\gohelm\Downloads\Project\graphql-server-demo-master\graphql-schema-gen-maven-plugin\src\main\java\com\amdocs\graphql\MyMojo.java
-C:\Users\gohelm\Downloads\Project\graphql-server-demo-master\graphql-schema-gen-maven-plugin\src\main\java\com\amdocs\graphql\GraphQLModel.java
-C:\Users\gohelm\Downloads\Project\graphql-server-demo-master\graphql-schema-gen-maven-plugin\src\main\java\com\amdocs\graphql\Context.java
-C:\Users\gohelm\Downloads\Project\graphql-server-demo-master\graphql-schema-gen-maven-plugin\src\main\java\com\amdocs\graphql\GraphqlField.java
-C:\Users\gohelm\Downloads\Project\graphql-server-demo-master\graphql-schema-gen-maven-plugin\src\main\java\com\amdocs\graphql\CustomScalar.java
+C:\Users\gohelm\Downloads\Personal\maven-plugin\graphql-java-schema-generator\src\main\java\com\github\mahendragohel\GraphqlField.java
+C:\Users\gohelm\Downloads\Personal\maven-plugin\graphql-java-schema-generator\src\main\java\com\github\mahendragohel\Context.java
+C:\Users\gohelm\Downloads\Personal\maven-plugin\graphql-java-schema-generator\src\main\java\com\github\mahendragohel\CustomScalar.java
+C:\Users\gohelm\Downloads\Personal\maven-plugin\graphql-java-schema-generator\src\main\java\com\github\mahendragohel\MyMojo.java
+C:\Users\gohelm\Downloads\Personal\maven-plugin\graphql-java-schema-generator\src\main\java\com\github\mahendragohel\GraphQLSchema.java
+C:\Users\gohelm\Downloads\Personal\maven-plugin\graphql-java-schema-generator\src\main\java\com\github\mahendragohel\GraphQLModel.java

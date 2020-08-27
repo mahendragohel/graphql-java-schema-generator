@@ -1,4 +1,4 @@
-package com.graphql.schema.generator;
+package com.github.mahendragohel;
 
 /*
  * Copyright 2001-2005 The Apache Software Foundation.

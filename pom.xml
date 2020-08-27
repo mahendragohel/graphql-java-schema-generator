@@ -1,45 +1,96 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.graphql.schema.generator</groupId>
+  <groupId>com.github.mahendragohel</groupId>
   <artifactId>graphql-schema-generator</artifactId>
   <packaging>maven-plugin</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>graphql-schema-generator Maven Plugin</name>
   <url>http://maven.apache.org</url>
 
+  <organization>
+    <url>https://github.com/mahendragohel</url>
+    <name>mahendragohel</name>
+  </organization>
+  <inceptionYear>2020</inceptionYear>
+
   <properties>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
+    <version.maven-plugin-api>3.6.3</version.maven-plugin-api>
+    <version.maven-plugin-annotations>3.6.0</version.maven-plugin-annotations>
+    <version.maven-project>2.2.1</version.maven-project>
+    <version.compiler>0.9.4</version.compiler>
+    <version.swagger-codegen>2.4.15</version.swagger-codegen>
+    <version.maven-plugin-plugin>3.5</version.maven-plugin-plugin>
+    <version.maven-deploy-plugin>2.8.2</version.maven-deploy-plugin>
+    <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
+    <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
+    <version.maven-javadoc-plugin>2.10.4</version.maven-javadoc-plugin>
+    <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
+    <version.maven-scm-provider-gitexe>1.9.5</version.maven-scm-provider-gitexe>
+    <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
   </properties>
-  
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git://github.com/mahendragohel/graphql-java-schema-generator.git</connection>
+    <developerConnection>scm:git:git@github.com:mahendragohel/graphql-java-schema-generator.git</developerConnection>
+    <url>https://github.com/mahendragohel/graphql-java-schema-generator</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
+      </url>
+    </repository>
+  </distributionManagement>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/mahendragohel/graphql-java-schema-generator/issues</url>
+  </issueManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <version>3.6.3</version>
+      <version>${version.maven-plugin-api}</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven.plugin-tools</groupId>
       <artifactId>maven-plugin-annotations</artifactId>
-      <version>3.6.0</version>
+      <version>${version.maven-plugin-annotations}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-project</artifactId>
-      <version>2.2.1</version>
+      <version>${version.maven-project}</version>
     </dependency>
 
     <dependency>
       <groupId>com.github.spullara.mustache.java</groupId>
       <artifactId>compiler</artifactId>
-      <version>0.9.4</version>
+      <version>${version.compiler}</version>
     </dependency>
     <dependency>
       <groupId>io.swagger</groupId>
       <artifactId>swagger-codegen</artifactId>
-      <version>2.4.15</version>
+      <version>${version.swagger-codegen}</version>
     </dependency>
 
 
@@ -48,9 +99,80 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${version.maven-deploy-plugin}</version>
+          <executions>
+            <execution>
+              <id>default-deploy</id>
+              <phase>deploy</phase>
+              <goals>
+                <goal>deploy</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>${version.nexus-staging-maven-plugin}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <serverId>ossrh</serverId>
+            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${version.maven-release-plugin}</version>
+          <configuration>
+            <localCheckout>true</localCheckout>
+            <pushChanges>false</pushChanges>
+            <mavenExecutorId>forked-path</mavenExecutorId>
+            <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.maven.scm</groupId>
+              <artifactId>maven-scm-provider-gitexe</artifactId>
+              <version>${version.maven-scm-provider-gitexe}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${version.maven-source-plugin}</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${version.maven-javadoc-plugin}</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+          </configuration>
+          <executions>
+            <execution>
+              <id>attach-javadoc</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
-          <version>3.5</version>
+          <version>${version.maven-plugin-plugin}</version>
           <configuration>
             <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
           </configuration>
@@ -67,4 +189,35 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <profiles>
+    <!-- GPG Signature on release -->
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${version.maven-gpg-plugin}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
