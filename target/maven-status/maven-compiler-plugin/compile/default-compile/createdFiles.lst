@@ -1,0 +1,7 @@
+com\amdocs\graphql\Context.class
+com\amdocs\graphql\GraphQLSchema.class
+com\amdocs\graphql\GraphqlField.class
+com\amdocs\graphql\GraphQLModel.class
+com\amdocs\graphql\MyMojo.class
+com\amdocs\graphql\CustomScalar.class
+com\amdocs\graphql\Context$GraphqlField.class
