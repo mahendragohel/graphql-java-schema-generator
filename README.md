@@ -1,4 +1,4 @@
-#Yaml to GraphQL Schema Generator 
+# Yaml to GraphQL Schema Generator 
 graphql-java-schema-generator
 
 You can  pull graphql-java-schema-generator from the central maven repository:
