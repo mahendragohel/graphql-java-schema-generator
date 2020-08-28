@@ -36,20 +36,12 @@ import java.util.stream.Stream;
 
 @Mojo(name = "generate-schema", defaultPhase = LifecyclePhase.COMPILE)
 public class MyMojo extends AbstractMojo {
-    @Parameter
-    private String inputYamlFileName;
-
-    @Parameter
-    private String modelPackage;
-
-    @Parameter
-    private String sourceFolder;
 
     @Parameter
     private String inputDirectory;
 
     @Parameter
-    private File outputDirectory;
+    private String outputDirectory;
 
     @Parameter(defaultValue = "${project.build.directory}")
     private String projectBuildDir;
@@ -64,38 +56,34 @@ public class MyMojo extends AbstractMojo {
     private static final String INTERFACE = "interface";
     private static final String TYPE = "type";
     private static final String MUSTACHE_FILE = "graphqlSchema.mustache";
+    private static final String JSON_SCALAR = "Json";
 
     private static List<String> customScalars = new ArrayList<>();
     private final static List<String> graphqlDefaultScalars = new ArrayList<>(Arrays.asList("String", "Integer", "Int", "Float","Boolean", "ID"));
 
     public void execute() throws MojoExecutionException {
 
-        try (Stream<Path> paths = Files.walk(Paths.get(mavenProject.getBasedir() + "/" + inputDirectory))) {
-            paths
-                    .filter(Files::isRegularFile)
-                    .forEach(path -> {
+        getLog().info("generating graphql schema from yaml file");
 
-                    });
+        try (Stream<Path> paths = Files.walk(Paths.get(mavenProject.getBasedir() + "/" + inputDirectory))) {
+            paths.filter(Files::isRegularFile).forEach(path -> {
+                if(path.getFileName().toString().endsWith("yaml")){
+                    getLog().info("Generating Schema for file : " + mavenProject.getBasedir() + "/" + path.getFileName());
+                    generateGraphQlSchema(path.getFileName().toString());
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        getLog().info("generating graphql schema from yaml file");
-        getLog().info(inputYamlFileName + "==" + modelPackage + "==" + sourceFolder + "==" + inputDirectory + "==" + outputDirectory);
+    }
 
-        String fileName = inputYamlFileName.replaceFirst("[.][^.]+$", GRAPHQL_EXTENSION);
-
-
-        File f = outputDirectory;
-        if (!f.exists()) {
-            f.mkdirs();
-        }
-
+    public void generateGraphQlSchema(String fileName){
         try {
-            getLog().info("Input directory: " + inputDirectory + inputYamlFileName);
+            getLog().info("Input directory: " + inputDirectory + fileName);
             getLog().info(mavenProject.getBasedir().toString());
             SwaggerParser swaggerParser = new SwaggerParser();
-            Swagger swagger = swaggerParser.read(mavenProject.getBasedir() + "/" + inputDirectory + inputYamlFileName);
+            Swagger swagger = swaggerParser.read(mavenProject.getBasedir() + "/" + inputDirectory + fileName);
             getLog().info("Read swagger file");
             Map<String, Model> definitions = swagger.getDefinitions();
             GraphQLSchema graphQLSchema = new GraphQLSchema();
@@ -153,7 +141,7 @@ public class MyMojo extends AbstractMojo {
             graphQLSchema.setCustomScalars(customScalarList);
 
             String content = mustacheContent(graphQLSchema, MUSTACHE_FILE);
-            generateFile(fileName, content);
+            generateFile(fileName.replaceFirst("[.][^.]+$", GRAPHQL_EXTENSION), content);
 
             getLog().info("generated schema file");
 
@@ -182,7 +170,7 @@ public class MyMojo extends AbstractMojo {
             }
             if(property.getValue() instanceof ObjectProperty){
                 ObjectProperty objectProperty = (ObjectProperty) property.getValue();
-                type = "Json";
+                type = JSON_SCALAR;
                 if(!graphqlDefaultScalars.contains(StringUtils.capitalize(type)) && !customScalars.contains(StringUtils.capitalize(type))){
                     customScalars.add(type);
                 }
@@ -197,7 +185,7 @@ public class MyMojo extends AbstractMojo {
             }
             if(property.getValue() instanceof MapProperty){
                 MapProperty mapProperty = (MapProperty) property.getValue();
-                type = "Json";
+                type = JSON_SCALAR;
                 if(!graphqlDefaultScalars.contains(StringUtils.capitalize(type)) && !customScalars.contains(StringUtils.capitalize(type))){
                     customScalars.add(type);
                 }
@@ -270,11 +258,16 @@ public class MyMojo extends AbstractMojo {
 
     private void generateFile(String fileName, String content) {
         try {
-            File f = outputDirectory;
-            if (!f.exists()) {
-                f.mkdirs();
+            File dir;
+            if(null != outputDirectory){
+                dir = new File(outputDirectory + "/graphql");
+            } else {
+                dir = new File(projectBuildDir + "/generated-sources/graphql");
             }
-            File schemaFile = new File(f, fileName);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            File schemaFile = new File(dir, fileName);
             FileWriter w = null;
             w = new FileWriter(schemaFile);
             w.write(content);
