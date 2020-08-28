@@ -31,7 +31,8 @@ Just add the below code to your projects POM.xml file to generate the graphql sc
      </configuration>
  </plugin>
 ```
-if you don't specify below config parameter then it will generate schema under `${project.build.directory}/generated-sources/graphql` :
+if you don't specify below config parameter then it will generate schema under:
+> `${project.build.directory}/generated-sources/graphql`
 
     <outputDirectory>src/main/resources/graphql</outputDirectory>
     
