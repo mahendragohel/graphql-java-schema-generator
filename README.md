@@ -1,7 +1,7 @@
 # Yaml to GraphQL Schema Generator 
 graphql-java-schema-generator
 
-You can  pull graphql-java-schema-generator from the central maven repository:
+You can  pull **_graphql-java-schema-generator_** from the central maven repository:
 ```xml
 <dependency>
   <groupId>com.github.mahendragohel</groupId>
@@ -39,7 +39,7 @@ Run below command to generate .graphqls schema files from yaml:
 
     mvn clean install
  ## Support
- If you need help using graphql-java-schema-generator feel free to drop an email or create an issue in github.com (preferred)
+ If you need help using **_graphql-java-schema-generator_** feel free to drop an email or create an issue in github.com (preferred)
  
  ## Contributions 
  * Provide suggestion/feedback/Issue
