@@ -3,7 +3,7 @@
   <groupId>com.github.mahendragohel</groupId>
   <artifactId>graphql-schema-generator</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.4</version>
+  <version>1.4.1-SNAPSHOT</version>
   <name>graphql-schema-generator Maven Plugin</name>
   <url>http://maven.apache.org</url>
 
@@ -59,7 +59,7 @@
     <connection>scm:git:git://github.com/mahendragohel/graphql-java-schema-generator.git</connection>
     <developerConnection>scm:git:git@github.com:mahendragohel/graphql-java-schema-generator.git</developerConnection>
     <url>https://github.com/mahendragohel/graphql-java-schema-generator</url>
-    <tag>graphql-schema-generator-1.4</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
