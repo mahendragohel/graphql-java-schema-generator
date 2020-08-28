@@ -28,8 +28,7 @@
     <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
     <version.maven-javadoc-plugin>2.10.4</version.maven-javadoc-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
-    <version.maven-scm-provider-gitexe>1.9.5</version.maven-scm-provider-gitexe>
-    <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
+    <version.maven-scm-provider-gitexe>1.11.2</version.maven-scm-provider-gitexe>
     <version.maven-release-plugin>2.5.3</version.maven-release-plugin>
   </properties>
 
@@ -137,12 +136,12 @@
             <dependency>
               <groupId>org.apache.maven.scm</groupId>
               <artifactId>maven-scm-provider-gitexe</artifactId>
-              <version>1.11.2</version>
+              <version>${version.maven-scm-provider-gitexe}</version>
             </dependency>
             <dependency>
               <groupId>org.apache.maven.scm</groupId>
               <artifactId>maven-scm-api</artifactId>
-              <version>1.11.2</version>
+              <version>${version.maven-scm-provider-gitexe}</version>
             </dependency>
           </dependencies>
         </plugin>
