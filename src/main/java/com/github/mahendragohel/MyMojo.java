@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-@Mojo(name = "generate-schema", defaultPhase = LifecyclePhase.COMPILE)
+@Mojo(name = "generate-schema", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class MyMojo extends AbstractMojo {
 
     @Parameter
