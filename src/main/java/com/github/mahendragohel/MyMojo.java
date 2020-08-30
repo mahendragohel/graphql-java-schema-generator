@@ -52,6 +52,12 @@ public class MyMojo extends AbstractMojo {
     @Parameter
     private String clientKitPackageName;
 
+    @Parameter
+    private boolean replaceSpecialCharacter;
+
+    @Parameter
+    private String replacementCharacter;
+
     private static final String GRAPHQL_EXTENSION = ".graphqls";
     private static final String INTERFACE = "interface";
     private static final String TYPE = "type";
@@ -240,7 +246,11 @@ public class MyMojo extends AbstractMojo {
             if (required) {
                 type = type + "!";
             }
-            graphqlFields.add(new GraphqlField(description, name.replace("@", ""), StringUtils.capitalize(type)));
+            if(replaceSpecialCharacter){
+                graphqlFields.add(new GraphqlField(description, name.replace("@", replacementCharacter), StringUtils.capitalize(type)));
+            } else {
+                graphqlFields.add(new GraphqlField(description, name.replace("@", ""), StringUtils.capitalize(type)));
+            }
         });
     }
 
