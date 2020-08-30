@@ -52,7 +52,7 @@ public class MyMojo extends AbstractMojo {
     @Parameter
     private String clientKitPackageName;
 
-    @Parameter
+    @Parameter(defaultValue = "false")
     private boolean replaceSpecialCharacter;
 
     @Parameter
