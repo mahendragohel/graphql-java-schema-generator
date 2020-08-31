@@ -6,7 +6,7 @@ You can  pull **_graphql-java-schema-generator_** from the central maven reposit
 <dependency>
   <groupId>com.github.mahendragohel</groupId>
   <artifactId>graphql-schema-generator</artifactId>
-  <version>1.3</version>
+  <version>1.4.2</version>
 </dependency>
 ```
 
@@ -15,7 +15,7 @@ Just add the below code to your projects POM.xml file to generate the graphql sc
 <plugin>
      <groupId>com.github.mahendragohel</groupId>
      <artifactId>graphql-schema-generator</artifactId>
-     <version>1.0-SNAPSHOT</version>
+     <version>1.4.1</version>
      <executions>
          <execution>
              <goals>
@@ -28,6 +28,9 @@ Just add the below code to your projects POM.xml file to generate the graphql sc
          <inputDirectory>src/main/resources/swagger/</inputDirectory>
             <!--it will generate .graphql files at below outputDirectory config location-->
          <outputDirectory>src/main/resources/graphql</outputDirectory>
+            <!-- whether to replace the special character or not by default if will remove special character -->
+         <replaceSpecialCharacter>true</replaceSpecialCharacter>
+         <replacementCharacter>_</replacementCharacter>
      </configuration>
  </plugin>
 ```
@@ -36,6 +39,19 @@ if you don't specify below config parameter then it will generate schema under:
 
     <outputDirectory>src/main/resources/graphql</outputDirectory>
     
+Below configuration will replace any special character present in the field property of the yaml definition model.
+
+             <replaceSpecialCharacter>true</replaceSpecialCharacter>
+             <replacementCharacter>_</replacementCharacter>
+
+For example,
+if you have field with below property then it will remove @ from property as graphql does not support special characters.
+```yaml
+    '@type':
+        type: string
+        description: 'some description'
+```             
+
 Run below command to generate .graphqls schema files from yaml:
 
     mvn clean install
